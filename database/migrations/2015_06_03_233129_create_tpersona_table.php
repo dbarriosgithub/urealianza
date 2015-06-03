@@ -24,7 +24,6 @@ class CreateTpersonaTable extends Migration {
 
             $table->softDeletes();
             $table->timestamps();
-            $table->primary('per_consecutivo');
 		});
 	}
 

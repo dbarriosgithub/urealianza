@@ -20,7 +20,6 @@ class CreateTprofesionTable extends Migration {
             $table->string('pro_profesion', 30)->unique();
             $table->softDeletes();
             $table->timestamps();
-            $table->primary('pro_consecutivo');
 
 		});
 	}
