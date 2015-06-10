@@ -17,8 +17,9 @@ class CreateTpersonaTable extends Migration {
 			$table->engine = 'InnoDB';
 
             $table->increments('per_consecutivo');
-            $table->string('per_nombres', 30)->unique();
-            $table->string('per_apellidos',30)->unique();
+            $table->string('per_cedula', 30)->unique();
+            $table->string('per_nombres', 30);
+            $table->string('per_apellidos',30);
             $table->string('pr_direccion', 60);
             $table->string('pr_celular', 60);
 
