@@ -10,11 +10,12 @@
 | and give it the controller to call when that URI is requested.
 |
 */
+Route::resource('persona', 'PersonaController');
+Route::get('persona/index', 'PersonaController@index');
+//Route::get('persona/create', 'PersonaController@create');
 
 Route::get('/', 'WelcomeController@index');
-
 Route::get('home', 'HomeController@index');
-
 
 
 Route::controllers([
@@ -23,5 +24,4 @@ Route::controllers([
 ]);
 
 
-Route::resource('persona', 'PersonaController');
-Route::resource('persona', 'PersonaController', ['only'=> ['index','create']]);
+
