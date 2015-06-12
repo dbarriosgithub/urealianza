@@ -22,10 +22,11 @@ class PersonaForm extends Request {
 	public function rules()
 	{
 		return [
+			"per_cedula"	=>	"required|min:7|max:45",
 			"per_nombres"	=>	"required|min:3|max:45",
 			"per_apellidos"	=>	"required|min:3|max:45",
-			"per_direccion"	=>	"required|min:5|max:45",
-			"per_celular"	=>	"required|min:10|max:12",
+			"pr_direccion"	=>	"required|min:5|max:45",
+			"pr_celular"	=>	"required|min:10|max:18",
 		];
 	}
 

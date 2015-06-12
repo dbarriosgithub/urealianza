@@ -5,8 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>Laravel</title>
-
-	<link href="{{ asset('/css/app.css') }}" rel="stylesheet">
+     {!!Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css')!!}
+     {!!Html::style('bower_components/bootstrap-material-design/dist/css/material.min.css')!!}
+     {!!Html::style('bower_components/bootstrap-material-design/dist/css/ripples.min.css')!!}
+	
+	<!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet"> -->
 
 	<!-- Fonts -->
 	<link href='//fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
@@ -55,8 +58,12 @@
 
 	@yield('content')
 
-	<!-- Scripts -->
+    {!!Html::script('bower_components/jquery/dist/jquery.min.js')!!}
+    {!!Html::script('bower_components/bootstrap/dist/js/bootstrap.min.js')!!}
+    {!!Html::script('bower_components/bootstrap-material-design/dist/js/material.min.js')!!}
+     {!!Html::script('bower_components/bootstrap-material-design/dist/js/ripples.min.js')!!}
+	<!-- Scripts 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script>
+	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script> -->
 </body>
 </html>

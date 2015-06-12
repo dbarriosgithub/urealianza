@@ -1,0 +1,24 @@
+{
+  "name": "urealianza",
+  "version": "0.0.1",
+  "homepage": "https://github.com/dbarriosgithub/urealianza",
+  "description": "paquete del frontend para el proyecto urealianza",
+  "moduleType": [
+    "globals"
+  ],
+  "authors": [
+    "Dairo Barrios Hernandez"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "bootstrap-material-design": "~0.3.0"
+  }
+}
