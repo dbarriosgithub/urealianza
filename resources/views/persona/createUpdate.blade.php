@@ -4,7 +4,7 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-default">
+			<div class="panel panel-primary">
 				<div class="panel-heading">Crear Persona</div>
                 @if($errors->has())
                     <div class='alert alert-danger'>
@@ -49,9 +49,16 @@
 							<div class="form-group">
 								{!! Form::submit('Enviar', ["class" => "btn btn-success btn-lg"]) !!}
 							</div>
- 					{!! Form::close() !!}
+							<div class="col-md-3 pull-right">
+							{!! Html::link(route('persona.create'), '', array('class' => 'btn btn-primary btn-fab btn-raised mdi-content-add')) !!}
+       						</div>
+				        	<div class="col-md-3 pull-right">
+							{!! Html::link(route('persona.index'), '', array('class' => 'btn btn-primary btn-fab btn-raised mdi-action-visibility')) !!}
+				        	</div>
+ 							{!! Form::close() !!}
 				</div>
 			</div>
+			
 		</div>
 	</div>
 </div>

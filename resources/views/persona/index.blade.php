@@ -17,7 +17,7 @@
           @endif
 
       @if(!$persona->isEmpty())
-          <table class="table table-bordered">
+          <table class="table table-striped table-hover">
               <tr>
                 <th>Cedula</th>
                 <th>Nombres</th>
@@ -49,5 +49,8 @@
       @endif
 		</div>
 	</div>
+       <div class="col-md-3 pull-right">
+        {!! Html::link(route('persona.create'), '', array('class' => 'btn btn-primary btn-fab btn-raised mdi-content-add')) !!}
+       </div>
 </div>
 @endsection
