@@ -8,6 +8,7 @@
      {!!Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css')!!}
      {!!Html::style('bower_components/bootstrap-material-design/dist/css/material.min.css')!!}
      {!!Html::style('bower_components/bootstrap-material-design/dist/css/ripples.min.css')!!}
+     {!!Html::style('bower_components/bootstrap-material-design/dist/css/material-fullpalette.css')!!}
 	
 	<!--<link href="{{ asset('/css/app.css') }}" rel="stylesheet"> -->
 
@@ -31,7 +32,7 @@
 					<span class="icon-bar"></span>
 					<span class="icon-bar"></span>
 				</button>
-				<a class="navbar-brand" href="#">Laravel</a>
+				<a class="navbar-brand" href="#">Urealianza</a>
 			</div>
 
 			<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -68,7 +69,7 @@
       	$.material.init();
       });
     </script>
-    
+
 	<!-- Scripts 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
 	<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.1/js/bootstrap.min.js"></script> -->

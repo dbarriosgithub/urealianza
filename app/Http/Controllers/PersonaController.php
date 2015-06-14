@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Requests\PersonaForm;
+use App\Http\Requests\EditPersonaForm;
 use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
@@ -13,9 +14,12 @@ class PersonaController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		return view("persona.index")->with('persona', \App\Persona::paginate(2)->setPath('persona'));
+	   
+	   $person = \App\Persona::	cedula($request->get('qcedula'))->paginate(2)->setPath('persona');
+        
+		return view("persona.index")->with('persona', $person);
 	}
 
 	/**
@@ -25,7 +29,7 @@ class PersonaController extends Controller {
 	 */
 	public function create()
 	{
-		return view("persona.createUpdate");
+		return view("persona.createUpdate",array('titlePanel'=>'Crear Persona'));
 	}
 
 	/**
@@ -34,9 +38,15 @@ class PersonaController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
+
+	public function show($id)
+	{
+        return view('persona.show')->with('persona',\App\Persona::find($id));
+	}
+
 	public function edit($id)
 	{
-		return view('persona.createUpdate')->with('persona', \App\Persona::where('per_consecutivo', $id)->first());
+		return view('persona.createUpdate',array('titlePanel'=>'Editar Persona'))->with('persona', \App\Persona::find($id));
 	}
 
 	/**
@@ -45,9 +55,9 @@ class PersonaController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
-	public function update($id, PersonaForm $personaForm)
+	public function update($id, EditPersonaForm $personaForm)
 	{
-		$persona = \App\Persona::where('per_consecutivo', $id)->first();
+		$persona = \App\Persona::find($id);
 	 
 		$persona->per_consecutivo = $id;
 

@@ -4,8 +4,8 @@
 <div class="container">
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-			<div class="panel panel-primary">
-				<div class="panel-heading">Crear Persona</div>
+			<div class="panel panel-primary panel-material-cyan-700">
+				<div class="panel-heading">{{$titlePanel}}</div>
                 @if($errors->has())
                     <div class='alert alert-danger'>
                         @foreach ($errors->all('<p>:message</p>') as $message)
@@ -50,10 +50,10 @@
 								{!! Form::submit('Enviar', ["class" => "btn btn-success btn-lg"]) !!}
 							</div>
 							<div class="col-md-3 pull-right">
-							{!! Html::link(route('persona.create'), '', array('class' => 'btn btn-primary btn-fab btn-raised mdi-content-add')) !!}
+							{!! Html::link(route('persona.create'), '', array('class' => 'btn btn-primary btn-fab btn-raised btn-material-blue-grey-700 mdi-social-person-add')) !!}
        						</div>
 				        	<div class="col-md-3 pull-right">
-							{!! Html::link(route('persona.index'), '', array('class' => 'btn btn-primary btn-fab btn-raised mdi-action-visibility')) !!}
+							{!! Html::link(route('persona.index'), '', array('class' => 'btn btn-primary btn-fab btn-raised btn-material-blue-grey-700 mdi-action-visibility')) !!}
 				        	</div>
  							{!! Form::close() !!}
 				</div>
