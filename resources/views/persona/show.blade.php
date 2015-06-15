@@ -4,19 +4,10 @@
 <div class="container">
 			<div class="panel panel-primary panel-material-cyan-700">
 				<div class="panel-heading">Vista Persona</div>
-	                @if($errors->has())
-	                    <div class='alert alert-danger'>
-	                        @foreach ($errors->all('<p>:message</p>') as $message)
-	                            {!! $message !!}
-	                        @endforeach
-	                    </div>
-	                @endif
-	 
-					@if (Session::has('message'))
-					    <div class="alert alert-success">{{ Session::get('message') }}</div>
-					@endif
+	                
+	                @include('errors.error_list')
+
 					<div class="panel-body">
-						
 	                       <ul>
 	                          <li class="list-group-item">
 	                           <h2>{!! $persona->per_cedula!!}</h2>
@@ -33,8 +24,7 @@
 				          <div class="col-md-3 pull-right">
 						   {!! Html::link(route('persona.index'), '', array('class' => 'btn btn-primary btn-fab btn-raised btn-material-blue-grey-700 mdi-action-visibility')) !!}
 						  </div>
-                       	   
-				   </div>
+ 				   </div>
 			</div>
 </div>
 @endsection			

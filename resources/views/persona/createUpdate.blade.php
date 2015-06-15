@@ -5,19 +5,8 @@
 	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
 			<div class="panel panel-primary panel-material-cyan-700">
-				<div class="panel-heading">{{$titlePanel}}</div>
-                @if($errors->has())
-                    <div class='alert alert-danger'>
-                        @foreach ($errors->all('<p>:message</p>') as $message)
-                            {!! $message !!}
-                        @endforeach
-                    </div>
-                @endif
- 
-				@if (Session::has('message'))
-				    <div class="alert alert-success">{{ Session::get('message') }}</div>
-				@endif
- 
+			 <div class="panel-heading">{{$titlePanel}}</div>
+                @include('errors.error_list')
 				<div class="panel-body">
 					@if(isset($persona))
 						{!! Form::model($persona, ['route' => ['persona.update', $persona->per_consecutivo], 'method' => 'patch']) !!}
@@ -58,7 +47,6 @@
  							{!! Form::close() !!}
 				</div>
 			</div>
-			
 		</div>
 	</div>
 </div>
