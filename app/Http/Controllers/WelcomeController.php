@@ -32,5 +32,10 @@ class WelcomeController extends Controller {
 	{
 		return view('welcome');
 	}
+	
+	public function auto()
+	{
+		return view('partials/autocompletePersona');
+	}
 
 }

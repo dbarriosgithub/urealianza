@@ -1,5 +1,4 @@
 @extends('app')
- 
 @section('content')
 <div class="container">
 	  <div class="row">
@@ -27,11 +26,9 @@
                 <th>Direccion</th>
                 <th>Celular</th>
                 <th>Borrar</th>
-                
               </tr>
               @foreach ($persona as $person)
                   <tr>
-                    
                     <td width="60" align="center">
                       {!! Html::link(route('persona.edit', $person->per_consecutivo), '', array('class' => 'mdi-content-create')) !!}
                     </td>

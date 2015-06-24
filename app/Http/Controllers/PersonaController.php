@@ -4,6 +4,7 @@ use App\Http\Requests;
 use App\Http\Requests\PersonaForm;
 use App\Http\Requests\EditPersonaForm;
 use App\Http\Controllers\Controller;
+use \Response;
 
 use Illuminate\Http\Request;
 
@@ -17,9 +18,8 @@ class PersonaController extends Controller {
 	public function index(Request $request)
 	{
 	   
-	   $person = \App\Persona::	cedula($request->get('qcedula'))->paginate(2)->setPath('persona');
-        
-		return view("persona.index")->with('persona', $person);
+	   $person = \App\Persona::	cedula($request->get('qcedula'))->paginate(1)->setPath('persona');
+	   return view("persona.index")->with('persona', $person);
 	}
 
 	/**
@@ -38,6 +38,11 @@ class PersonaController extends Controller {
 	* @param  int  $id
 	* @return Response
 	*/
+	public function search($id,Request $request)
+	{		
+	  $person = \App\Persona::cedula($id)->get();
+	  return Response::json($person);
+	}
 
 	public function show($id)
 	{

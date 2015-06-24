@@ -10,9 +10,13 @@
 |
 */
 Route::resource('persona', 'PersonaController');
-    
+Route::resource('alcalde', 'AlcaldeController');
+Route::resource('concejal', 'ConcejalController');
+Route::resource('jefepolitico', 'JefepoliticoController');
+Route::post('persona/search/{query}','PersonaController@search');
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');
+Route::get('auto', 'WelcomeController@auto');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

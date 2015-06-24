@@ -4,8 +4,9 @@
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>Laravel</title>
+	<title>::Urealianza</title>
      {!!Html::style('bower_components/bootstrap/dist/css/bootstrap.min.css')!!}
+     {!!Html::style('bower_components/loading/loader.css')!!}
      {!!Html::style('bower_components/bootstrap-material-design/dist/css/material.min.css')!!}
      {!!Html::style('bower_components/bootstrap-material-design/dist/css/ripples.min.css')!!}
      {!!Html::style('bower_components/bootstrap-material-design/dist/css/material-fullpalette.css')!!}
@@ -69,6 +70,7 @@
       	$.material.init();
       });
     </script>
+    @yield('scripts')
 
 	<!-- Scripts 
 	<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
