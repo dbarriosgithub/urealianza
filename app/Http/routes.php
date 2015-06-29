@@ -13,6 +13,8 @@ Route::resource('persona', 'PersonaController');
 Route::resource('alcalde', 'AlcaldeController');
 Route::resource('concejal', 'ConcejalController');
 Route::resource('jefepolitico', 'JefepoliticoController');
+Route::resource('lider', 'LiderController');
+Route::resource('votante', 'VotanteController');
 Route::post('persona/search/{query}','PersonaController@search');
 Route::get('/', 'WelcomeController@index');
 Route::get('home', 'HomeController@index');

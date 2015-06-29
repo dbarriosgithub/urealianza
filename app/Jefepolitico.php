@@ -11,4 +11,16 @@ class Jefepolitico extends Model {
 	protected $fillable = ['jep_idpersona'];
  
 	protected $guarded = ['jep_consecutivo'];
+
+    public  function persona()
+    {
+ 		return $this->hasOne('\App\Persona','per_consecutivo','jep_idpersona');
+    } 
+
+
+    public function scopeName($query)
+    {
+       $query->join('tpersona','tjefepolitico.jep_idpersona','=','tpersona.per_consecutivo')->get();
+    }
+
 }
