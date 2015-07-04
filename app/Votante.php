@@ -15,8 +15,19 @@ class Votante extends Model {
     public  function persona()
     {
  		return $this->hasOne('\App\Persona','per_consecutivo','vot_votante');
+    }
+
+    public  function lider()
+    {
+        return $this->hasOne('\App\Lider','lid_consecutivo','vot_idlider');
     } 
 
+    public function scopeSearchName($query,$field,$param)
+    {
+       $query
+       ->join('tpersona','tvotante.vot_votante','=','tpersona.per_consecutivo')
+       ->where($field,'LIKE','%'.trim($param).'%');
+    }
 
     public function scopeName($query)
     {

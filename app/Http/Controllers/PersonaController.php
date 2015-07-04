@@ -17,7 +17,6 @@ class PersonaController extends Controller {
 	 */
 	public function index(Request $request)
 	{
-	   
 	   $person = \App\Persona::	cedula($request->get('qcedula'))->paginate(1);
 	   return view("persona.index")->with('persona', $person);
 	}

@@ -1,10 +1,11 @@
 @extends('app')
 @section('content')
 <div class="container">
-	  <div class="row">
-    
+	<div class="row">
 		<div class="col-md-10 col-md-offset-1">
-        @include('errors.error_list')        
+        @include('partials.submenus')
+        @include('errors.error_list')
+      <h3><span class="label label default label-material-blue-grey-700">:: Listado de personas</span></h3>          
       <div class="panel panel-default">
         <div class="panel-body">
          {!! Form::open(['route'=>'persona.index','method'=>'GET','class'=>'navbar-form  pull-right','role'=>'search'])!!}

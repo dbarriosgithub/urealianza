@@ -13,9 +13,24 @@ class JefepoliticoController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+      if($request->get('qsearch'))
+      {
+        
+        if($request->get('searchOp')=='qcedula')
+        	$field = 'per_cedula';
+        else  	
+        	$field = 'per_nombres';
+
+      	 $person = \App\Jefepolitico::searchName($field,$request->get('qsearch'))->paginate(1);
+      }
+      else	
+		$person = \App\Jefepolitico::name()->paginate(1);
+
+       //parámetros que se van a enviar a la vista
+	    $paramview = array('persona'=>$person,'title'=>'::Listado de jefes políticos','view'=>'partials.formTablePersona','route'=>'jefepolitico.index','destroy'=>'jefepolitico.destroy');
+	    return view("rol.indexMainRol",$paramview);
 	}
 
 	/**
@@ -83,7 +98,10 @@ class JefepoliticoController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$jefepolitico = \App\Jefepolitico::where('jep_idpersona', '=',$id);
+        $jefepolitico->delete();
+ 
+		return redirect('jefepolitico/')->with('message', 'El jefe político ha sido eliminado');
 	}
 
 }

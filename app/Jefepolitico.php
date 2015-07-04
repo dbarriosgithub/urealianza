@@ -23,4 +23,12 @@ class Jefepolitico extends Model {
        $query->join('tpersona','tjefepolitico.jep_idpersona','=','tpersona.per_consecutivo')->get();
     }
 
+    public function scopeSearchName($query,$field,$param)
+    {
+       $query
+        ->join('tpersona','tjefepolitico.jep_idpersona','=','tpersona.per_consecutivo')
+        ->where($field,'LIKE','%'.trim($param).'%')
+        ->get();
+    }
+
 }

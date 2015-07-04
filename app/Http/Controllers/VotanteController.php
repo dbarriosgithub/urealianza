@@ -12,9 +12,24 @@ class VotanteController extends Controller {
 	 *}
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+		if($request->get('qsearch'))
+      	{
+	        if($request->get('searchOp')=='qcedula')
+	        	$field = 'per_cedula';
+	        else  	
+	        	$field = 'per_nombres';
+
+	        $votante = \App\Votante::searchName($field,$request->get('qsearch'))->paginate(1);
+	    }
+	    else  
+	        $votante = \App\Votante::name()->paginate(1);  
+		   
+		 //parámetros que se van a enviar a la vista
+	     $paramview = array('votante'=>$votante,'title'=>'::Listado de votantes','view'=>'rol.tableVotanteRol','route'=>'votante.index','destroy'=>'votante.destroy');
+	     
+	     return view("rol.indexMainRol",$paramview);
 	}
 
 	/**

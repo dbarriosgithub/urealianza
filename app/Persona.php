@@ -14,15 +14,15 @@ class Persona extends Model {
 
 
 	public  function jefepolitico()
-    {
+  {
  		return $this->belongsTo('\App\Jefepolitico');
-    } 
+  } 
 
-    public function scopeCedula($query,$param)
-    {
+  public function scopeCedula($query,$param)
+  {
        if(!empty(trim($param)))
        	 $query->where('per_cedula',trim($param));
-    }
+  }
 
 
 

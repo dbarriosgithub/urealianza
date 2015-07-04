@@ -12,9 +12,24 @@ class LiderController extends Controller {
 	 *}
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+		if($request->get('qsearch'))
+      	{
+	        if($request->get('searchOp')=='qcedula')
+	        	$field = 'per_cedula';
+	        else  	
+	        	$field = 'per_nombres';
+
+	        $lider = \App\Lider::searchName($field,$request->get('qsearch'))->paginate(1);
+	    }
+	    else  
+	        $lider = \App\Lider::name()->paginate(1);  
+		   
+		 //parámetros que se van a enviar a la vista
+	     $paramview = array('lider'=>$lider,'title'=>'::Listado de lideres','view'=>'rol.tableLiderRol','route'=>'lider.index','destroy'=>'lider.destroy');
+	     
+	     return view("rol.indexMainRol",$paramview);
 	}
 
 	/**
@@ -67,7 +82,17 @@ class LiderController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		
+		$jefepolitico= \App\Jefepolitico::name()->get();
+
+		$lider = \App\Lider::find($id);
+
+		$person = $lider->persona;
+
+		//convertimos en array para pasar al dropdown
+		$list_jefepolitico = $jefepolitico->lists('per_nombres','jep_consecutivo');
+		
+		return view("rol.editLiderRol",array('titlePanel'=>'Editar Lider','route'=>'lider.update','persona'=>$person,'foreignkey'=>'lid_idpersona','lider'=>$lider,'list_jefepolitico'=>$list_jefepolitico));
 	}
 
 	/**
@@ -78,7 +103,16 @@ class LiderController extends Controller {
 	 */
 	public function update($id)
 	{
-		//
+		$lider = \App\Lider::find($id);
+	 
+		$lider->lid_consecutivo = $id;
+
+		$lider->lid_idpersona = \Request::input('lid_idpersona');
+	 
+		$lider->lid_idjefepolitico = \Request::input('lid_idjefepolitico');
+		$lider->save();
+	 
+		return redirect()->route('lider.edit', ['lider' => $id])->with('message', 'Datos del lider actualizados');
 	}
 
 	/**
@@ -89,7 +123,10 @@ class LiderController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$lider = \App\Lider::where('lid_consecutivo', '=',$id);
+        $lider->delete();
+ 
+		return redirect('lider/')->with('message', 'El lider ha sido eliminado');
 	}
 
 }

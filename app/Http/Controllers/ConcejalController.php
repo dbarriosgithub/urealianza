@@ -13,9 +13,23 @@ class ConcejalController extends Controller {
 	 *
 	 * @return Response
 	 */
-	public function index()
+	public function index(Request $request)
 	{
-		//
+		if($request->get('qsearch'))
+      	{
+	        if($request->get('searchOp')=='qcedula')
+	        	$field = 'per_cedula';
+	        else  	
+	        	$field = 'per_nombres';
+
+      	    $person = \App\Concejal::searchName($field,$request->get('qsearch'))->paginate(1);
+      	}
+      	else	
+		    $person = \App\Concejal::name()->paginate(1);
+
+        //parámetros que se van a enviar a la vista
+	     $paramview = array('persona'=>$person,'title'=>'::Listado de concejales','view'=>'partials.formTablePersona','route'=>'concejal.index','destroy'=>'concejal.destroy');
+	     return view("rol.indexMainRol",$paramview);
 	}
 
 	/**
@@ -83,7 +97,10 @@ class ConcejalController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$concejal = \App\Concejal::where('con_idpersona','=',$id);
+        $concejal->delete();
+ 
+		return redirect('concejal/')->with('message', 'El concejal ha sido eliminado satisfactoriamente!!');
 	}
 
 }
