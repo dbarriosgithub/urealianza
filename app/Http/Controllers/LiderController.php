@@ -13,7 +13,15 @@ class LiderController extends Controller {
 	 * @return Response
 	 */
 	public function index(Request $request)
-	{
+	{  
+		$alcalde = \App\Alcalde::all();
+
+		//Control de creación de alcalde para referenciarlo como lider
+		//dd($alcalde);
+		if($alcalde->isEmpty())
+	      return redirect('alcalde/create')->withErrors('Debe registrar un alcalde!!');
+	   
+
 		if($request->get('qsearch'))
       	{
 	        if($request->get('searchOp')=='qcedula')
@@ -21,15 +29,16 @@ class LiderController extends Controller {
 	        else  	
 	        	$field = 'per_nombres';
 
-	        $lider = \App\Lider::searchName($field,$request->get('qsearch'))->paginate(1);
+	        $lider = \App\Lider::searchName($field,$request->get('qsearch'),$alcalde[0]->persona->per_consecutivo)->paginate(1);
 	    }
 	    else  
-	        $lider = \App\Lider::name()->paginate(1);  
+	        $lider = \App\Lider::name($alcalde[0]->persona->per_consecutivo)->paginate(1);  
 		   
 		 //parámetros que se van a enviar a la vista
 	     $paramview = array('lider'=>$lider,'title'=>'::Listado de lideres','view'=>'rol.tableLiderRol','route'=>'lider.index','destroy'=>'lider.destroy');
 	     
 	     return view("rol.indexMainRol",$paramview);
+	   
 	}
 
 	/**
@@ -42,11 +51,15 @@ class LiderController extends Controller {
 		$person = new \App\Persona;
 
 		$jefepolitico= \App\Jefepolitico::name()->get();
+		$concejal= \App\Concejal::name()->get();
+
+		//convertimos en array para pasar al dropdown
+		$list_concejal = $concejal->lists('per_nombres','con_consecutivo');
 		
 		//convertimos en array para pasar al dropdown
 		$list_jefepolitico = $jefepolitico->lists('per_nombres','jep_consecutivo');
 		
-		return view("rol.createUpdateRol",array('titlePanel'=>'Registrar Lider','route'=>'lider.store','persona'=>$person,'foreignkey'=>'lid_idpersona','list_jefepolitico'=>$list_jefepolitico));
+		return view("rol.createUpdateRol",array('titlePanel'=>'Registrar Lider','route'=>'lider.store','persona'=>$person,'foreignkey'=>'lid_idpersona','list_concejal'=>$list_concejal,'list_jefepolitico'=>$list_jefepolitico));
 	}
 
 	/**
@@ -58,6 +71,7 @@ class LiderController extends Controller {
 	{
 		$lider = new \App\Lider;
 		$lider->lid_idpersona = \Request::input('lid_idpersona');
+		$lider->lid_idconcejal = \Request::input('lid_idconcejal');
 		$lider->lid_idjefepolitico = \Request::input('lid_idjefepolitico');
 		$lider->save();
 		return redirect('lider/create')->with('message','El lider ha sido registrado!!');
@@ -82,17 +96,21 @@ class LiderController extends Controller {
 	 */
 	public function edit($id)
 	{
-		
 		$jefepolitico= \App\Jefepolitico::name()->get();
+
+		$concejal= \App\Concejal::name();
 
 		$lider = \App\Lider::find($id);
 
 		$person = $lider->persona;
 
 		//convertimos en array para pasar al dropdown
+		$list_concejal = $concejal->lists('per_nombres','con_consecutivo');
+
+		//convertimos en array para pasar al dropdown
 		$list_jefepolitico = $jefepolitico->lists('per_nombres','jep_consecutivo');
 		
-		return view("rol.editLiderRol",array('titlePanel'=>'Editar Lider','route'=>'lider.update','persona'=>$person,'foreignkey'=>'lid_idpersona','lider'=>$lider,'list_jefepolitico'=>$list_jefepolitico));
+		return view("rol.editRol",array('titlePanel'=>'Editar Lider','route'=>'lider.update','persona'=>$person,'foreignkey'=>'lid_idpersona','model'=>$lider,'consecutivo'=>$id,'list_concejal'=>$list_concejal,'list_jefepolitico'=>$list_jefepolitico));
 	}
 
 	/**
@@ -123,10 +141,17 @@ class LiderController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$lider = \App\Lider::where('lid_consecutivo', '=',$id);
-        $lider->delete();
+		try
+		{
+		  $lider = \App\Lider::where('lid_consecutivo', '=',$id);
+          $lider->delete();
+        }
+        catch(\Illuminate\Database\QueryException $e)
+        {        
+            return redirect('lider/')->withErrors('Este registro contiene datos vinculados que restringen su eliminación!!');
+        }
  
-		return redirect('lider/')->with('message', 'El lider ha sido eliminado');
+		return redirect('lider/')->with('message','El lider ha sido eliminado satisfactoriamente!!');
 	}
 
 }

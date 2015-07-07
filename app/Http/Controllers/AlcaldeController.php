@@ -14,7 +14,15 @@ class AlcaldeController extends Controller {
 	 */
 	public function index()
 	{
-		//
+		$alcalde =  \App\Alcalde::all();
+
+		if($alcalde->isEmpty())
+		{
+		  \Session::flash('message-error','NO existe un alcalde registrado!!');	
+		  return redirect('alcalde/create');
+		}
+
+		return view('persona.createUpdate',array('titlePanel'=>'Editar Alcalde'))->with('persona', \App\Persona::find($alcalde[0]->alc_idpersona));
 	}
 
 	/**
@@ -24,7 +32,7 @@ class AlcaldeController extends Controller {
 	 */
 	public function create()
 	{
-		$person = new \App\Persona;
+	    $person = new \App\Persona;
 		return view("rol.createUpdateRol",array('titlePanel'=>'Registrar Alcalde','route'=>'alcalde.store','persona'=>$person,'foreignkey'=>'alc_idpersona'));
 	}
 
@@ -35,7 +43,14 @@ class AlcaldeController extends Controller {
 	 */
 	public function store(AlcaldeForm $alcaldeForm)
 	{
-		
+		$result  =  \App\Alcalde::all();
+
+		if(!($result->isEmpty()))
+		{
+		  \Session::flash('message-error','Ya existe un alcalde registrado!!');	
+		  return redirect('alcalde/create');
+		}
+         
 		$alcalde = new \App\Alcalde;
 		$alcalde->alc_idpersona = \Request::input('alc_idpersona');
 		$alcalde->save();

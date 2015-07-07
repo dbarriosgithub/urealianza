@@ -23,6 +23,7 @@ class Tvotante extends Migration {
             $table->string('vot_numeromesavotacion');
             $table->string('vot_lugarvotacion');
             $table->string('vot_observacion')->nullable();
+            $table->boolean('vot_soloalcalde')->default(false);
 
 			$table->integer('vot_idlider')->unsigned();
             $table->foreign('vot_idlider')->references('lid_consecutivo')->on('tlider');

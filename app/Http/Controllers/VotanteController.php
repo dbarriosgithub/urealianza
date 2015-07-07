@@ -2,6 +2,7 @@
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\EditVotanteForm;
 use App\Http\Requests\VotanteForm;
 use Illuminate\Http\Request;
 
@@ -41,7 +42,7 @@ class VotanteController extends Controller {
 	{
 		$person = new \App\Persona;
 
-		$lider= \App\Lider::name()->get();
+		$lider= \App\Lider::nameAll()->get();
 		
 		//convertimos en array para pasar al dropdown
 		$list_lider = $lider->lists('per_nombres','lid_consecutivo');
@@ -56,6 +57,8 @@ class VotanteController extends Controller {
 	 */
 	public function store(VotanteForm $votanteForm)
 	{
+	   $alcalde =  \App\Alcalde::first();
+
 	   $votante = new \App\Votante;
 	   $votante->vot_votante = \Request::input('vot_votante');
 	   $votante->vot_idlider = \Request::input('vot_idlider');
@@ -64,7 +67,13 @@ class VotanteController extends Controller {
        $votante->vot_lugarvotacion = \Request::input('vot_lugarvotacion');
        $votante->vot_observacion = \Request::input('vot_observacion');
 	   
-	   $votante->save();
+       //se valida si el lider es el alcalde
+       $lider = \App\Lider::find($votante->vot_idlider);
+
+	  if($alcalde->persona->per_consecutivo == $lider->persona->per_consecutivo)
+	     $votante->vot_soloalcalde = true;
+
+	    $votante->save();
 		return redirect('votante/create')->with('message','El votante ha sido registrado!!');
 	}
 
@@ -87,7 +96,16 @@ class VotanteController extends Controller {
 	 */
 	public function edit($id)
 	{
-		//
+		$lider = \App\Lider::nameAll()->get();
+
+		$votante = \App\Votante::find($id);
+
+		$person = $votante->persona;
+
+		//convertimos en array para pasar al dropdown
+		$list_lider = $lider->lists('per_nombres','lid_consecutivo');
+		
+		return view("rol.editRol",array('titlePanel'=>'Editar votante','route'=>'votante.update','persona'=>$person,'foreignkey'=>'vot_votante','consecutivo'=>$id,'model'=>$votante,'list_lider'=>$list_lider));
 	}
 
 	/**
@@ -96,9 +114,33 @@ class VotanteController extends Controller {
 	 * @param  int  $id
 	 * @return Response
 	 */
-	public function update($id)
+	public function update($id,EditVotanteForm $editvotanteform)
 	{
-		//
+		$alcalde =  \App\Alcalde::first();
+
+		$votante = \App\Votante::find($id);
+	 
+		$votante->vot_consecutivo = $id;
+
+		$votante->vot_votante = \Request::input('vot_votante');
+	 
+		$votante->vot_idlider = \Request::input('vot_idlider');
+
+		$votante->vot_numeromesavotacion = \Request::input('vot_numeromesavotacion');
+
+		$votante->vot_lugarvotacion = \Request::input('vot_lugarvotacion');
+
+		$votante->vot_observacion = \Request::input('vot_observacion');
+		
+		//se valida si el lider es el alcalde
+        $lider = \App\Lider::find($votante->vot_idlider);
+
+	   if($alcalde->persona->per_consecutivo == $lider->persona->per_consecutivo)
+	     $votante->vot_soloalcalde = true;
+		
+		 $votante->save();
+	 
+		return redirect()->route('votante.edit', ['votante' => $id])->with('message', 'Datos del votante han sido actualizados');
 	}
 
 	/**
@@ -109,7 +151,10 @@ class VotanteController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		//
+		$votante = \App\Votante::where('vot_consecutivo', '=',$id);
+        $votante->delete();
+ 
+		return redirect('votante/')->with('message', 'El votante ha sido eliminado');
 	}
 
 }

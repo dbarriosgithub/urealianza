@@ -23,7 +23,7 @@
 				<td width="500">{!! $objvotante->persona->per_apellidos!!}</td>
 				<td width="500">{!! $objvotante->vot_numeromesavotacion!!}</td>
 				<td width="500">{!! $objvotante->vot_lugarvotacion!!}</td>
-				<td width="500">{!! $objvotante->lider->persona->per_nombres.'-'.$objvotante->lider->persona->per_apellidos!!}</td>
+				<td width="500">{!! $objvotante->lider->persona->full_name!!}</td>
 				<td width="60" align="center">
 					{!! Form::open(array('route' => array($destroy, $objvotante->vot_consecutivo), 'method' => 'DELETE')) !!}
 						<button type="submit" class="mdi-content-remove"></button>

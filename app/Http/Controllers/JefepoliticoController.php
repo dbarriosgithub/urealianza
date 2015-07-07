@@ -98,9 +98,16 @@ class JefepoliticoController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$jefepolitico = \App\Jefepolitico::where('jep_idpersona', '=',$id);
-        $jefepolitico->delete();
- 
+		try
+		{
+		  $jefepolitico = \App\Jefepolitico::where('jep_idpersona', '=',$id);
+	      $jefepolitico->delete();
+	    }
+        catch(\Illuminate\Database\QueryException $e)
+        {        
+            return redirect('jefepolitico/')->withErrors('Este registro contiene datos vinculados que restringen su eliminación!!');
+        }
+        
 		return redirect('jefepolitico/')->with('message', 'El jefe político ha sido eliminado');
 	}
 

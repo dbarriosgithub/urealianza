@@ -28,7 +28,7 @@ class PersonaController extends Controller {
 	 */
 	public function create()
 	{
-		return view("persona.createUpdate",array('titlePanel'=>'Crear Persona'));
+		return view("persona.createUpdate",array('titlePanel'=>'Ingresar Persona'));
 	}
 
 	/**
@@ -50,7 +50,7 @@ class PersonaController extends Controller {
 
 	public function edit($id)
 	{
-		return view('persona.createUpdate',array('titlePanel'=>'Editar Persona'))->with('persona', \App\Persona::find($id));
+		return view('persona.createUpdate',array('titlePanel'=>'Editar datos persona'))->with('persona', \App\Persona::find($id));
 	}
 
 	/**
@@ -74,6 +74,10 @@ class PersonaController extends Controller {
 		$persona->pr_direccion= \Request::input('pr_direccion');
 
 		$persona->pr_celular =  \Request::input('pr_celular');
+
+		$persona->per_profesion =  \Request::input('per_profesion');
+
+		$persona->per_expectativa =  \Request::input('per_expectativa');
 	 
 		$persona->save();
 	 
@@ -99,6 +103,10 @@ class PersonaController extends Controller {
 
 		$persona->pr_celular =  \Request::input('pr_celular');
 	 
+		$persona->per_profesion =  \Request::input('per_profesion');
+
+		$persona->per_expectativa =  \Request::input('per_expectativa');
+
 		$persona->save();
  
 		return redirect('persona/create')->with('message', 'La persona ha sido registrada');
@@ -106,8 +114,15 @@ class PersonaController extends Controller {
 
 	public function destroy($id)
 	{
-		$persona = \App\Persona::where('per_consecutivo', '=',$id);
-        $persona->delete();
+		try
+		{
+			$persona = \App\Persona::where('per_consecutivo', '=',$id);
+	        $persona->delete();
+	    }
+	    catch(\Illuminate\Database\QueryException $e)
+        {        
+            return redirect('persona/')->withErrors('Este registro contiene datos vinculados que restringen su eliminación!!');
+        }
  
 		return redirect('persona/')->with('message', 'La persona ha sido eliminada');
 	}

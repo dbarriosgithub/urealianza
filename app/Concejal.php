@@ -13,6 +13,11 @@ class Concejal extends Model {
 	protected $guarded = ['con_consecutivo'];
 
 
+	  public  function persona()
+      {
+ 		return $this->hasOne('\App\Persona','per_consecutivo','con_idpersona');
+      }
+
 	  public function scopeName($query)
 	  {
 	      $query->join('tpersona','tconcejal.con_idpersona','=','tpersona.per_consecutivo')->get();

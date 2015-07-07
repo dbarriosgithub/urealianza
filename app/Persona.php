@@ -12,18 +12,21 @@ class Persona extends Model {
  
 	protected $guarded = ['per_consecutivo'];
 
+  // attributo creado accesible desde Model::full_name
+  public function getFullNameAttribute()
+  {
+    return $this->per_nombres.'-'.$this->per_apellidos;
+  }
 
 	public  function jefepolitico()
   {
- 		return $this->belongsTo('\App\Jefepolitico');
+ 		 return $this->belongsTo('\App\Jefepolitico');
   } 
 
   public function scopeCedula($query,$param)
   {
-       if(!empty(trim($param)))
-       	 $query->where('per_cedula',trim($param));
+      if(!empty(trim($param)))
+       $query->where('per_cedula',trim($param));
   }
-
-
 
 }

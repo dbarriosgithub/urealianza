@@ -16,8 +16,10 @@ class CreateTpersonaTable extends Migration {
             $table->string('per_cedula', 30)->unique();
             $table->string('per_nombres', 30);
             $table->string('per_apellidos',30);
-            $table->string('pr_direccion', 60);
+            $table->string('pr_direccion', 100);
             $table->string('pr_celular', 60);
+            $table->string('per_profesion', 160);
+            $table->string('per_expectativa', 160);
             $table->softDeletes();
             $table->timestamps();
 		});

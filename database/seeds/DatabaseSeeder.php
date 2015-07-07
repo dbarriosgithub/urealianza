@@ -12,9 +12,8 @@ class DatabaseSeeder extends Seeder {
 	 */
 	public function run()
 	{
-		Model::unguard();
-
-		// $this->call('UserTableSeeder');
+		$this->call('PersonaTableSeeder');
+        $this->command->info('La tabla persona ha siso poblada!');
 	}
 
 }

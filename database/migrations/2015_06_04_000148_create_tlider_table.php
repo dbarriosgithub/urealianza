@@ -18,9 +18,11 @@ class CreateTliderTable extends Migration {
 
             $table->increments('lid_consecutivo');
             $table->integer('lid_idpersona')->unsigned();
+            $table->integer('lid_idconcejal')->unsigned();
             $table->integer('lid_idjefepolitico')->unsigned();
 
             $table->foreign('lid_idpersona')->references('per_consecutivo')->on('tpersona');
+            $table->foreign('lid_idconcejal')->references('con_consecutivo')->on('tconcejal');
             $table->foreign('lid_idjefepolitico')->references('jep_consecutivo')->on('tjefepolitico');
 
             $table->softDeletes();

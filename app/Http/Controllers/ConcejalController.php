@@ -97,8 +97,15 @@ class ConcejalController extends Controller {
 	 */
 	public function destroy($id)
 	{
-		$concejal = \App\Concejal::where('con_idpersona','=',$id);
-        $concejal->delete();
+		try
+		{
+		   $concejal = \App\Concejal::where('con_idpersona','=',$id);
+	       $concejal->delete();
+	    }
+	    catch(\Illuminate\Database\QueryException $e)
+        {        
+           return redirect('concejal/')->withErrors('Este registro contiene datos vinculados que restringen su eliminación!!');
+        }
  
 		return redirect('concejal/')->with('message', 'El concejal ha sido eliminado satisfactoriamente!!');
 	}

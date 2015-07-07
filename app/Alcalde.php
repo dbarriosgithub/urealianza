@@ -11,4 +11,9 @@ class Alcalde extends Model {
 	protected $fillable = ['alc_idpersona'];
  
 	protected $guarded = ['alc_consecutivo'];
+
+	public  function persona()
+    {
+ 		return $this->hasOne('\App\Persona','per_consecutivo','alc_idpersona');
+    }
 }

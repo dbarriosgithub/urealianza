@@ -36,6 +36,14 @@
 								{!! Form::text('pr_celular', null, ["class" => "form-control","placeholder"=>"Ingrese número celular"]) !!}
 							</div>
 							<div class="form-group">
+								{!! Form::label('per_profesion','Profesión') !!}
+								{!! Form::text('per_profesion', null, ["class" => "form-control","placeholder"=>"Ingrese profesión"]) !!}
+							</div>
+							<div class="form-group">
+								{!! Form::label('per_expectativa','Expectativa') !!}
+								{!! Form::text('per_expectativa', null, ["class" => "form-control","placeholder"=>"Ingrese Expectativa"]) !!}
+							</div>
+							<div class="form-group">
 								{!! Form::submit('Enviar', ["class" => "btn btn-success btn-lg"]) !!}
 							</div>
 							<div class="col-md-3 pull-right">

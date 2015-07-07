@@ -2,7 +2,7 @@
 @section('content')
 <div class="container">
 	<div class="row">
-	    <div class="col-md-10 col-md-offset-1">
+		<div class="col-md-10 col-md-offset-1">
 	      @include('partials.submenus')
 	    </div>  
 
@@ -12,21 +12,18 @@
              
                 @include('errors.error_list')
 				<div class="panel-body">
-					@include ('partials.autocompletePersona')
-				<div id="AreaShowPersona" style="display:none">	
-					@include ('partials.showPersonaPartial',array('persona'=>$persona))
-			</div>
-		</div>
-		  <div class="row">
-			<div class="col-md-10 col-md-offset-1">
-			 <div class="panel panel-default">
-  			  <div class="panel-body">
-				{!! Form::open(['route' => $route]) !!}
+				  @include ('partials.showPersonaPartial',array('persona'=>$persona))
+				</div>
+			  <div class="row">
+				<div class="col-md-10 col-md-offset-1">
+				 <div class="panel panel-default">
+	  			  <div class="panel-body">
+				{!! Form::model($model, ['route' => [$route,$consecutivo],'method' => 'patch']) !!}
 				    @if(isset($list_jefepolitico))
-				        {!! Form::label('lid_idconcejal','Concejal') !!}
-		                {!! Form::select('lid_idconcejal',$list_concejal,null,array('class'=>'form-control'))!!}
+ 						{!! Form::label('lid_idconcejal','Concejal') !!}
+				        {!! Form::select('lid_idconcejal',$list_concejal,$model->lid_idconcejal,array('class'=>'form-control'))!!}
                    	    {!! Form::label('lid_idjefepolitico','Jefe Político') !!}
-		                {!! Form::select('lid_idjefepolitico',$list_jefepolitico,null,array('class'=>'form-control'))!!}	  
+		                {!! Form::select('lid_idjefepolitico',$list_jefepolitico,$model->lid_idjefepolitico,array('class'=>'form-control'))!!}	  
 		              <br>
 					@endif
 
@@ -42,9 +39,9 @@
 		                <br>
 					 @endif
 	            
-				    {!! Form::hidden($foreignkey, '', array('id' => 'foreignkey')) !!}
+				    {!! Form::hidden($foreignkey,$model->persona->per_consecutivo, array('id' => 'foreignkey')) !!}
 				    <p align="center">
-					{!! Form::submit('Enviar', ["class" => "btn btn-success btn-lg"]) !!}
+					{!! Form::submit('Guardar', ["class" => "btn btn-success btn-lg"]) !!}
 					</p>
 				{!! Form::close()!!}	
 			   </div> 

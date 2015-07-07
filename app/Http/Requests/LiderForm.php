@@ -24,6 +24,7 @@ class LiderForm extends Request {
 		return [
 		  "lid_idpersona"	=>	"required|unique:tlider",
 		  "lid_idjefepolitico"	=> "required",
+		  "lid_idconcejal"	=> "required",
 		];
 	}
 
@@ -33,6 +34,7 @@ class LiderForm extends Request {
 	    	'lid_idpersona.required'=>'Persona es requerido',
 	    	'lid_idpersona.unique'=>'Esta persona ya ha sido registrada!!',
 	    	'lid_idjefepolitico.required'=>'Jefe político es requerido !!',
+	    	'lid_concejal.required'=>'Concejal es requerido !!',
 	    ];
 	}
 

@@ -16,6 +16,8 @@
 	                          <li class="list-group-item">{!! $persona->per_apellidos !!}</li>
 	                          <li class="list-group-item">{!! $persona->pr_direccion !!}</li>
 	                          <li class="list-group-item">{!! $persona->pr_celular !!}</li>
+	                          <li class="list-group-item">{!! $persona->per_profesion !!}</li>
+	                          <li class="list-group-item">{!! $persona->per_expectativa !!}</li>
 	                       </ul>
                            
 						  <div class="col-md-3 pull-right">

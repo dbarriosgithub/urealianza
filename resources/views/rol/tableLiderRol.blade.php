@@ -5,6 +5,7 @@
 			 <th>Nombres</th>
 			 <th>Apellidos</th>
 			 <th>Celular</th>
+			 <th>Concejal</th>
 			 <th>Jefe político</th>
 			 <th>Borrar</th>
 			
@@ -21,7 +22,8 @@
 				<td width="500">{!! $objlider->persona->per_nombres!!}</td>
 				<td width="500">{!! $objlider->persona->per_apellidos!!}</td>
 				<td width="500">{!! $objlider->persona->pr_celular!!}</td>
-				<td width="500">{!! $objlider->jefepolitico->persona->per_nombres.'-'.$objlider->jefepolitico->persona->per_apellidos!!}</td>
+				<td width="500">{!! $objlider->concejal->persona->full_name!!}</td>
+				<td width="500">{!! $objlider->jefepolitico->persona->full_name!!}</td>
 				<td width="60" align="center">
 					{!! Form::open(array('route' => array($destroy, $objlider->lid_consecutivo), 'method' => 'DELETE')) !!}
 						<button type="submit" class="mdi-content-remove"></button>
